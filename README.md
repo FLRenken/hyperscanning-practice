@@ -8,6 +8,14 @@ The dataset used for this is ds007471, an EEG hyperscanning study of the sense o
 
 The study included 32 pairs of participants (64 people in total), each pair recorded simultaneously on a single 64-channel BrainVision file (32 channels per person, distinguished by `_R`/`_L` suffixes).
 
+**Raw Data:**
+
+- Number of Channels: 64 Channels simultaneously (32 per person)
+- Two eye-movement-channels: `VEOG_b_R` and `VEOG_a_R`
+- Sampling rate: 1000 Hz
+- Duration: 2,3186 seconds ≈ 38.6 minutes
+- Frequency Range 1-125 Hz
+
 ### Task
 
 Each pair played simple tone sequences together, alternating between two conditions:
@@ -24,20 +32,15 @@ Measured:
 
 ## Analysis
 
-### Is increased inter-brain synchrony (IBS) associated with increased subjective involvement?: [Analysis notebook](ibs_subj_involv.ipynb)
+### Is increased inter-brain synchrony (IBS) associated with increased subjective involvement?
 
-**Plan:**
+## Statistical Measures
 
-1. Load and preprocess the raw EEG
-2. Load the behavioral file (agency ratings, condition labels)
-3. Compute inter-brain synchrony (IBS) with HyPyP
-4. Compare IBS between the duet and constant-pitch conditions, and relate that to the agency-rating difference between conditions.
+### Phase-locking value
 
-**Raw Data:**
+Quantifies the consisteny of phase differences between two signals across multiple trials.
+For every trial, channel pair, and time point, we want the phase difference $$\Delta\phi(t) = \phi_R(t) - \phi_L(t)$$ where $$\phi_R(t)$$ and $$\phi_L(t)$$ are the instantaneous phases of the two EEG signals.
+PLV ≈ 1 -> phase difference is very consistent
+PLV ≈ 0 -> phase difference varies considerably
 
-- Number of Channels: 64 Channels simultaneously (32 per person)
-- Two eye-movement-channels: `VEOG_b_R` and `VEOG_a_R`
-- Sampling rate: 1000 Hz
-- Duration: 2,3186 seconds ≈ 38.6 minutes
-- Frequency Range 1-125 Hz
--
+The problem is that a high PLV does not necessarily mean that the two brains are interacting. Phase locking can also occur if the pair hears the same music, moves together or are exposed to the same auditory stimulus.
