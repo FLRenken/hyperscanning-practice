@@ -30,17 +30,28 @@ Measured:
 - **Joint agency rating (subjective involvement)** (1–7 self-report) after each trial: how much the participant felt their actions and the outcome were jointly theirs.
 - **Synchronization performance**: The measured timing asynchrony between the two participants' note onsets, as a proportion of the beat interval, plus its variability (SD) per trial.
 
-## Analysis
+## Proof of Concept Analysis
 
-### Is increased inter-brain synchrony (IBS) associated with increased subjective involvement?
+### PLV (1 dyad)
 
-## Statistical Measures
+<!-- PLV_RESULTS_START -->
+
+| Condition      | Real pairs | Shuffled pairs | p-value |
+| -------------- | ---------: | -------------: | ------: |
+| duet           |     0.1144 |         0.1160 |  0.6015 |
+| constant_pitch |     0.1172 |         0.1176 |  0.5130 |
+
+<!-- PLV_RESULTS_END -->
+
+## Glossary of Statistical Measures
 
 ### Phase-locking value
 
 Quantifies the consisteny of phase differences between two signals across multiple trials.
 For every trial, channel pair, and time point, we want the phase difference $$\Delta\phi(t) = \phi_R(t) - \phi_L(t)$$ where $$\phi_R(t)$$ and $$\phi_L(t)$$ are the instantaneous phases of the two EEG signals.
+
 PLV ≈ 1 -> phase difference is very consistent
+
 PLV ≈ 0 -> phase difference varies considerably
 
 The problem is that a high PLV does not necessarily mean that the two brains are interacting. Phase locking can also occur if the pair hears the same music, moves together or are exposed to the same auditory stimulus.

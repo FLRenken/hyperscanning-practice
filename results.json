@@ -1,0 +1,20 @@
+{
+  "notebook_1": {
+    "status": "provisional",
+    "metric": "PLV",
+    "conditions": {
+      "duet": {
+        "real": 0.11436937575939014,
+        "shuffled": 0.11604775909954217,
+        "p": 0.6015
+      },
+      "constant_pitch": {
+        "real": 0.11717375729281583,
+        "shuffled": 0.11763150439949732,
+        "p": 0.513
+      }
+    }
+  },
+  "notebook_2": {},
+  "notebook_3": {}
+}
