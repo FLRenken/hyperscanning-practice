@@ -2,12 +2,12 @@
 
 ## Next Steps
 
-- [ ] ~~Do an exploratory analysis of the dataset
-- [x] ~~Compute phase lock value
-- [ ] ~~Include subjectivity-rating in analysis
-- [ ] ~~Extend analysis to more dyads
-- [ ] ~~Add CCorr and the alpha, beta and gamma bands, all with the same shuffled baseline
-- [ ] ~~Choose channel subsets before looking at results (e.g. frontal, central) instead of averaging all 729 pairs
+- [ ] Do an exploratory analysis of the dataset
+- [x] ~~Compute phase lock value~~
+- [ ] Include subjectivity-rating in analysis
+- [ ] Extend analysis to more dyads
+- [ ] Add CCorr and the alpha, beta and gamma bands, all with the same shuffled baseline
+- [ ] Choose channel subsets before looking at results (e.g. frontal, central) instead of averaging all 729 pairs
 
 ## Goal
 
