@@ -1,6 +1,15 @@
 # An exploration of hyperscanning data of a joint action task
 
-## Motivation
+## Next Steps
+
+- [ ] ~~Do an exploratory analysis of the dataset
+- [x] ~~Compute phase lock value
+- [ ] ~~Include subjectivity-rating in analysis
+- [ ] ~~Extend analysis to more dyads
+- [ ] ~~Add CCorr and the alpha, beta and gamma bands, all with the same shuffled baseline
+- [ ] ~~Choose channel subsets before looking at results (e.g. frontal, central) instead of averaging all 729 pairs
+
+## Goal
 
 ## Data
 
@@ -66,12 +75,3 @@ PLV ≈ 1 -> phase difference is very consistent
 PLV ≈ 0 -> phase difference varies considerably
 
 The problem is that a high PLV does not necessarily mean that the two brains are interacting. Phase locking can also occur if the pair hears the same music, moves together or are exposed to the same auditory stimulus.
-
-## Next Steps
-
-- [] Do an exploratory analysis of the dataset
-- [x] Compute phase lock value
-- [] Include subjectivity-rating in analysis
-- [] Extend analysis to more dyads
-- [] Add CCorr and the alpha, beta and gamma bands, all with the same shuffled baseline
-- [] Choose channel subsets before looking at results (e.g. frontal, central) instead of averaging all 729 pairs
