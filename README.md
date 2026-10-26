@@ -34,14 +34,25 @@ Measured:
 
 ### PLV (1 dyad)
 
+For each complete trial, theta (4-8 Hz) the phase was calculated from a window of 4.5-12.5 seconds. The phase lock value was computed for every R X L channel pair, then averaged over all 729 pairs, giving one number per trial. "Real" averages trials with their true partners trial. "Shuffled" averages trials with the wrong partners trial from the same condition.
+
+PLV Measure
+
 <!-- PLV_RESULTS_START -->
 
-| Condition      | Real pairs | Shuffled pairs | p-value |
-| -------------- | ---------: | -------------: | ------: |
-| duet           |     0.1144 |         0.1160 |  0.6015 |
-| constant_pitch |     0.1172 |         0.1176 |  0.5130 |
+| Condition              | Real pairs | Shuffled pairs | p-value |
+| ---------------------- | ---------: | -------------: | ------: |
+| duet (n=19)            |     0.1144 |         0.1160 |  0.6015 |
+| constant pitch (n= 20) |     0.1172 |         0.1176 |  0.5130 |
 
 <!-- PLV_RESULTS_END -->
+
+There is no statistically significant excess of theta-band coupling in real pairs relative to the shuffled baseline in either condition.
+
+**Limitations**
+
+- This is just one dyad, with just the theta-band
+- Averaging was done over all 729 channel pairs, so there's dillution in terms of localized coupling
 
 ## Glossary of Statistical Measures
 
@@ -55,3 +66,12 @@ PLV ≈ 1 -> phase difference is very consistent
 PLV ≈ 0 -> phase difference varies considerably
 
 The problem is that a high PLV does not necessarily mean that the two brains are interacting. Phase locking can also occur if the pair hears the same music, moves together or are exposed to the same auditory stimulus.
+
+## Next Steps
+
+- [] Do an exploratory analysis of the dataset
+- [x] Compute phase lock value
+- [] Include subjectivity-rating in analysis
+- [] Extend analysis to more dyads
+- [] Add CCorr and the alpha, beta and gamma bands, all with the same shuffled baseline
+- [] Choose channel subsets before looking at results (e.g. frontal, central) instead of averaging all 729 pairs
