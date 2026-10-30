@@ -1,4 +1,262 @@
 {
+  "preprocessing": {
+    "sub-01": {
+      "boundary": "S1",
+      "practice": 6,
+      "real": 57,
+      "complete": 39,
+      "duet": 19,
+      "constant_pitch": 20
+    },
+    "sub-02": {
+      "boundary": "S1",
+      "practice": 6,
+      "real": 58,
+      "complete": 37,
+      "duet": 19,
+      "constant_pitch": 18
+    },
+    "sub-03": {
+      "boundary": "S107 fallback",
+      "practice": 6,
+      "real": 56,
+      "complete": 40,
+      "duet": 20,
+      "constant_pitch": 20
+    },
+    "sub-04": {
+      "boundary": "S1",
+      "practice": 6,
+      "real": 57,
+      "complete": 37,
+      "duet": 19,
+      "constant_pitch": 18
+    },
+    "sub-05": {
+      "boundary": "S1",
+      "practice": 6,
+      "real": 56,
+      "complete": 39,
+      "duet": 20,
+      "constant_pitch": 19
+    },
+    "sub-06": {
+      "boundary": "S1",
+      "practice": 6,
+      "real": 57,
+      "complete": 38,
+      "duet": 20,
+      "constant_pitch": 18
+    },
+    "sub-07": {
+      "boundary": "S1",
+      "practice": 8,
+      "real": 55,
+      "complete": 38,
+      "duet": 19,
+      "constant_pitch": 19
+    },
+    "sub-08": {
+      "boundary": "S1",
+      "practice": 2,
+      "real": 58,
+      "complete": 40,
+      "duet": 20,
+      "constant_pitch": 20
+    },
+    "sub-09": {
+      "boundary": "S1",
+      "practice": 6,
+      "real": 59,
+      "complete": 39,
+      "duet": 19,
+      "constant_pitch": 20
+    },
+    "sub-10": {
+      "boundary": "S1",
+      "practice": 6,
+      "real": 61,
+      "complete": 40,
+      "duet": 20,
+      "constant_pitch": 20
+    },
+    "sub-11": {
+      "boundary": "S1",
+      "practice": 7,
+      "real": 57,
+      "complete": 39,
+      "duet": 20,
+      "constant_pitch": 19
+    },
+    "sub-12": {
+      "boundary": "S1",
+      "practice": 6,
+      "real": 56,
+      "complete": 36,
+      "duet": 18,
+      "constant_pitch": 18
+    },
+    "sub-13": {
+      "boundary": "S1",
+      "practice": 9,
+      "real": 56,
+      "complete": 40,
+      "duet": 20,
+      "constant_pitch": 20
+    },
+    "sub-14": {
+      "boundary": "S1",
+      "practice": 6,
+      "real": 57,
+      "complete": 40,
+      "duet": 20,
+      "constant_pitch": 20
+    },
+    "sub-15": {
+      "boundary": "S1",
+      "practice": 6,
+      "real": 59,
+      "complete": 37,
+      "duet": 20,
+      "constant_pitch": 17
+    },
+    "sub-16": {
+      "boundary": "S1",
+      "practice": 6,
+      "real": 58,
+      "complete": 40,
+      "duet": 20,
+      "constant_pitch": 20
+    },
+    "sub-17": {
+      "boundary": "S1",
+      "practice": 8,
+      "real": 55,
+      "complete": 39,
+      "duet": 20,
+      "constant_pitch": 19
+    },
+    "sub-18": {
+      "boundary": "S107 fallback",
+      "practice": 6,
+      "real": 59,
+      "complete": 37,
+      "duet": 19,
+      "constant_pitch": 18
+    },
+    "sub-19": {
+      "boundary": "S1",
+      "practice": 6,
+      "real": 57,
+      "complete": 40,
+      "duet": 20,
+      "constant_pitch": 20
+    },
+    "sub-20": {
+      "boundary": "S1",
+      "practice": 6,
+      "real": 59,
+      "complete": 39,
+      "duet": 20,
+      "constant_pitch": 19
+    },
+    "sub-21": {
+      "boundary": "S1",
+      "practice": 6,
+      "real": 62,
+      "complete": 38,
+      "duet": 19,
+      "constant_pitch": 19
+    },
+    "sub-22": {
+      "boundary": "S1",
+      "practice": 8,
+      "real": 58,
+      "complete": 40,
+      "duet": 20,
+      "constant_pitch": 20
+    },
+    "sub-23": {
+      "boundary": "S1",
+      "practice": 6,
+      "real": 56,
+      "complete": 40,
+      "duet": 20,
+      "constant_pitch": 20
+    },
+    "sub-24": {
+      "boundary": "S1",
+      "practice": 7,
+      "real": 60,
+      "complete": 39,
+      "duet": 19,
+      "constant_pitch": 20
+    },
+    "sub-25": {
+      "boundary": "S1",
+      "practice": 6,
+      "real": 57,
+      "complete": 40,
+      "duet": 20,
+      "constant_pitch": 20
+    },
+    "sub-26": {
+      "boundary": "S1",
+      "practice": 6,
+      "real": 60,
+      "complete": 40,
+      "duet": 20,
+      "constant_pitch": 20
+    },
+    "sub-27": {
+      "boundary": "S1",
+      "practice": 6,
+      "real": 56,
+      "complete": 39,
+      "duet": 19,
+      "constant_pitch": 20
+    },
+    "sub-28": {
+      "boundary": "S1",
+      "practice": 6,
+      "real": 56,
+      "complete": 40,
+      "duet": 20,
+      "constant_pitch": 20
+    },
+    "sub-29": {
+      "boundary": "S1",
+      "practice": 6,
+      "real": 56,
+      "complete": 36,
+      "duet": 16,
+      "constant_pitch": 20
+    },
+    "sub-30": {
+      "boundary": "S1",
+      "practice": 9,
+      "real": 63,
+      "complete": 40,
+      "duet": 20,
+      "constant_pitch": 20
+    },
+    "sub-31": {
+      "boundary": "S1",
+      "practice": 6,
+      "real": 56,
+      "complete": 38,
+      "duet": 19,
+      "constant_pitch": 19
+    },
+    "sub-32": {
+      "boundary": "S1",
+      "practice": 6,
+      "real": 57,
+      "complete": 39,
+      "duet": 20,
+      "constant_pitch": 19
+    }
+  },
   "notebook_1": {
     "status": "provisional",
     "metric": "PLV",

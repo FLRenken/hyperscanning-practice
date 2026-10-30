@@ -6,47 +6,100 @@ from pathlib import Path
 README = Path("README.md")
 RESULTS = Path("results.json")
 
-# Load results
-with RESULTS.open("r", encoding="utf-8") as f:
-    results = json.load(f)
+results = json.loads(RESULTS.read_text(encoding="utf-8"))
+
+# --------------------------------------------------
+# 1. PLV results
+# --------------------------------------------------
 
 conditions = results["notebook_1"]["conditions"]
 
-# Build Markdown table
 lines = [
     "| Condition | Real pairs | Shuffled pairs | p-value |",
     "|---|---:|---:|---:|",
 ]
 
 for name, values in conditions.items():
-    real = values.get("real")
-    shuffled = values.get("shuffled")
-    p_value = values.get("p")
-
     fmt = lambda x: f"{x:.4f}" if x is not None else "N/A"
 
     lines.append(
-        f"| {name} | {fmt(real)} | {fmt(shuffled)} | {fmt(p_value)} |"
+        f"| {name} | {fmt(values.get('real'))} "
+        f"| {fmt(values.get('shuffled'))} "
+        f"| {fmt(values.get('p'))} |"
     )
 
-table = "\n".join(lines)
+plv_table = "\n".join(lines)
 
-# Replace only the content between the markers
+
+# --------------------------------------------------
+# 2. Preprocessing results
+# --------------------------------------------------
+
+preprocessing = results.get("preprocessing", {})
+
+lines = [
+    "| Subject | Boundary | Practice | Real | Complete | Duet | Constant pitch |",
+    "|---|---|---:|---:|---:|---:|---:|",
+]
+
+for sub, values in sorted(preprocessing.items()):
+    lines.append(
+        f"| {sub} "
+        f"| {values.get('boundary', 'N/A')} "
+        f"| {values.get('practice', 'N/A')} "
+        f"| {values.get('real', 'N/A')} "
+        f"| {values.get('complete', 'N/A')} "
+        f"| {values.get('duet', 'N/A')} "
+        f"| {values.get('constant_pitch', 'N/A')} |"
+    )
+
+preprocessing_table = "\n".join(lines)
+
+
+# --------------------------------------------------
+# 3. Replace README sections
+# --------------------------------------------------
+
 readme = README.read_text(encoding="utf-8")
 
-pattern = r"<!-- PLV_RESULTS_START -->.*?<!-- PLV_RESULTS_END -->"
-replacement = (
-    "<!-- PLV_RESULTS_START -->\n"
-    + table
-    + "\n<!-- PLV_RESULTS_END -->"
+
+def replace_section(readme, start_marker, end_marker, table):
+    pattern = re.escape(start_marker) + r".*?" + re.escape(end_marker)
+
+    replacement = (
+        start_marker + "\n"
+        + table + "\n"
+        + end_marker
+    )
+
+    updated, count = re.subn(
+        pattern,
+        lambda _: replacement,
+        readme,
+        count=1,
+        flags=re.DOTALL
+    )
+
+    if count == 0:
+        raise ValueError(f"Could not find markers: {start_marker}")
+
+    return updated
+
+
+readme = replace_section(
+    readme,
+    "<!-- PLV_RESULTS_START -->",
+    "<!-- PLV_RESULTS_END -->",
+    plv_table
 )
 
-updated, count = re.subn(
-    pattern, lambda _: replacement, readme, count=1, flags=re.DOTALL
+readme = replace_section(
+    readme,
+    "<!-- PREPROCESSING_RESULTS_START -->",
+    "<!-- PREPROCESSING_RESULTS_END -->",
+    preprocessing_table
 )
 
-if count == 0:
-    raise ValueError("Could not find PLV result markers in README.md")
+README.write_text(readme, encoding="utf-8")
 
-README.write_text(updated, encoding="utf-8")
 print("README.md updated successfully.")
