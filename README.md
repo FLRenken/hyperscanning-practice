@@ -17,14 +17,6 @@ The dataset used for this is ds007471, an EEG hyperscanning study of the sense o
 
 The study included 32 pairs of participants (64 people in total), each pair recorded simultaneously on a single 64-channel BrainVision file (32 channels per person, distinguished by `_R`/`_L` suffixes).
 
-**Raw Data:**
-
-- Number of Channels: 64 Channels simultaneously (32 per person)
-- Two eye-movement-channels: `VEOG_b_R` and `VEOG_a_R`
-- Sampling rate: 1000 Hz
-- Duration: 2,3186 seconds ≈ 38.6 minutes
-- Frequency Range 1-125 Hz
-
 ### Task
 
 Each pair played simple tone sequences together, alternating between two conditions:
@@ -39,6 +31,47 @@ Measured:
 - **Joint agency rating (subjective involvement)** (1–7 self-report) after each trial: how much the participant felt their actions and the outcome were jointly theirs.
 - **Synchronization performance**: The measured timing asynchrony between the two participants' note onsets, as a proportion of the beat interval, plus its variability (SD) per trial.
 
+## Preprocessing-result
+
+<!-- PREPROCESSING_RESULTS_START -->
+
+| Subject | Boundary      | Practice | Real | Complete | Duet | Constant pitch |
+| ------- | ------------- | -------: | ---: | -------: | ---: | -------------: |
+| sub-01  | S1            |        6 |   57 |       39 |   19 |             20 |
+| sub-02  | S1            |        6 |   58 |       37 |   19 |             18 |
+| sub-03  | S107 fallback |        6 |   56 |       40 |   20 |             20 |
+| sub-04  | S1            |        6 |   57 |       37 |   19 |             18 |
+| sub-05  | S1            |        6 |   56 |       39 |   20 |             19 |
+| sub-06  | S1            |        6 |   57 |       38 |   20 |             18 |
+| sub-07  | S1            |        8 |   55 |       38 |   19 |             19 |
+| sub-08  | S1            |        2 |   58 |       40 |   20 |             20 |
+| sub-09  | S1            |        6 |   59 |       39 |   19 |             20 |
+| sub-10  | S1            |        6 |   61 |       40 |   20 |             20 |
+| sub-11  | S1            |        7 |   57 |       39 |   20 |             19 |
+| sub-12  | S1            |        6 |   56 |       36 |   18 |             18 |
+| sub-13  | S1            |        9 |   56 |       40 |   20 |             20 |
+| sub-14  | S1            |        6 |   57 |       40 |   20 |             20 |
+| sub-15  | S1            |        6 |   59 |       37 |   20 |             17 |
+| sub-16  | S1            |        6 |   58 |       40 |   20 |             20 |
+| sub-17  | S1            |        8 |   55 |       39 |   20 |             19 |
+| sub-18  | S107 fallback |        6 |   59 |       37 |   19 |             18 |
+| sub-19  | S1            |        6 |   57 |       40 |   20 |             20 |
+| sub-20  | S1            |        6 |   59 |       39 |   20 |             19 |
+| sub-21  | S1            |        6 |   62 |       38 |   19 |             19 |
+| sub-22  | S1            |        8 |   58 |       40 |   20 |             20 |
+| sub-23  | S1            |        6 |   56 |       40 |   20 |             20 |
+| sub-24  | S1            |        7 |   60 |       39 |   19 |             20 |
+| sub-25  | S1            |        6 |   57 |       40 |   20 |             20 |
+| sub-26  | S1            |        6 |   60 |       40 |   20 |             20 |
+| sub-27  | S1            |        6 |   56 |       39 |   19 |             20 |
+| sub-28  | S1            |        6 |   56 |       40 |   20 |             20 |
+| sub-29  | S1            |        6 |   56 |       36 |   16 |             20 |
+| sub-30  | S1            |        9 |   63 |       40 |   20 |             20 |
+| sub-31  | S1            |        6 |   56 |       38 |   19 |             19 |
+| sub-32  | S1            |        6 |   57 |       39 |   20 |             19 |
+
+<!-- PREPROCESSING_RESULTS_END -->
+
 ## Proof of Concept Analysis
 
 ### PLV (1 dyad)
@@ -49,10 +82,10 @@ PLV Measure
 
 <!-- PLV_RESULTS_START -->
 
-| Condition              | Real pairs | Shuffled pairs | p-value |
-| ---------------------- | ---------: | -------------: | ------: |
-| duet (n=19)            |     0.1144 |         0.1160 |  0.6015 |
-| constant pitch (n= 20) |     0.1172 |         0.1176 |  0.5130 |
+| Condition      | Real pairs | Shuffled pairs | p-value |
+| -------------- | ---------: | -------------: | ------: |
+| duet           |     0.1144 |         0.1160 |  0.6015 |
+| constant_pitch |     0.1172 |         0.1176 |  0.5130 |
 
 <!-- PLV_RESULTS_END -->
 
