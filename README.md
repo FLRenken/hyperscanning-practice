@@ -4,7 +4,7 @@
 
 - [Goal](#goal)
 - [Data](#data)
-- [Preprocessing Results](#preprocessing-results)
+- [Preprocessing](#preprocessing-results)
 - [Proof of Concept Analysis](#proof-of-concept-analysis)
   - [PLV (1 dyad)](#plv-1-dyad)
   - [Limitations](#limitations)
@@ -30,7 +30,9 @@ Measured:
 - **Joint agency rating (subjective involvement)** (1–7 self-report) after each trial: how much the participant felt their actions and the outcome were jointly theirs.
 - **Synchronization performance**: The measured timing asynchrony between the two participants' note onsets, as a proportion of the beat interval, plus its variability (SD) per trial.
 
-**Preprocessing results listed here:** [Results JSON file](results.json)
+## Preprocessing
+
+**Results listed here:** [Results JSON file](results.json)
 
 ## Proof of Concept Analysis
 
