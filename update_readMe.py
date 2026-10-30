@@ -30,7 +30,6 @@ for name, values in conditions.items():
 
 plv_table = "\n".join(lines)
 
-
 # --------------------------------------------------
 # 2. Preprocessing results
 # --------------------------------------------------
@@ -55,13 +54,11 @@ for sub, values in sorted(preprocessing.items()):
 
 preprocessing_table = "\n".join(lines)
 
-
 # --------------------------------------------------
 # 3. Replace README sections
 # --------------------------------------------------
 
 readme = README.read_text(encoding="utf-8")
-
 
 def replace_section(readme, start_marker, end_marker, table):
     pattern = re.escape(start_marker) + r".*?" + re.escape(end_marker)
@@ -93,12 +90,12 @@ readme = replace_section(
     plv_table
 )
 
-readme = replace_section(
+''' readme = replace_section(
     readme,
     "<!-- PREPROCESSING_RESULTS_START -->",
     "<!-- PREPROCESSING_RESULTS_END -->",
     preprocessing_table
-)
+) '''
 
 README.write_text(readme, encoding="utf-8")
 
