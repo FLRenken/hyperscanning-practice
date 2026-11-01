@@ -1,4 +1,4 @@
-# An exploration of hyperscanning data of a joint action task
+# Exploring Neural Dynamics During Joint Action
 
 ## Index
 
