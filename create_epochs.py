@@ -1,4 +1,3 @@
-
 import json
 from pathlib import Path
 import numpy as np
@@ -110,7 +109,6 @@ def preprocess_subject(sub, tmin=2.0, tmax=15.0):
             (metadata.condition == "constant_pitch").sum()
         )
     }
-
 
 def update_preprocessing_results(subjects):
     # Load existing results, preserving notebook results
