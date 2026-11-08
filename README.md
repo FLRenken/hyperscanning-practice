@@ -1,66 +1,113 @@
 # Exploring Neural Dynamics During Joint Action
 
-**Next Steps**
-
-- [x] ~~Do an exploratory analysis of the dataset~~
-- [x] ~~Compute phase lock value~~
-- [x] ~~Extend analysis to more dyads~~
-- [ ] Include subjectivity-rating in analysis
-- [ ] Add CCorr and the alpha, beta and gamma bands, all with the same shuffled baseline
-- [ ] Choose channel subsets before looking at results (e.g. frontal, central) instead of averaging all 729 pairs
-
 ## Index
 
 - [Goal](#goal)
+- [Methods](#methods)
+- [Dataset](#dataset)
+- [Preprocessing](#preprocessing)
 - [Results](#results)
   - [Synchronization](#synchronization)
   - [Desynchronization](#desynchronization)
-- [Data](#data)
-- [Preprocessing](#preprocessing-results)
 - [Proof of Concept Analysis](#proof-of-concept-analysis)
   - [PLV (1 dyad)](#plv-1-dyad)
-  - [Limitations](#limitations)
-- [Glossary of Statistical Measures](#glossary-of-statistical-measures)
-  - [Phase-locking value](#phase-locking-value)
+- [References](#references)
 - [Next Steps](#next-steps)
 
 ## Goal
 
 When people act together, as when two musicians play a duet, their behaviour becomes closely coordinated in time. Earlier studies have reported inter-brain phase synchrony during social interaction [1] and while playing music together [2, 3].
 
-But Inter-brain synchrony is hard to interpret. Two brains can appear "synchronized" without interacting at all, because both participants hear the same tones, follow the same beat and make similar movements [4]. Common synchrony measures such as PLV are also prone to spurious hyper-connections [4]. On top of that, EEG has low spatial resolution, and playing an instrument introduces motion and muscle artifacts. Comparing every channel of one person with every channel of the other also creates a large multiple-comparison problem. For these reasons, the analysis compares real partner pairs against shuffled pseudo-pairs, which heard the same stimuli but did not interact.
+But Inter-brain synchrony is hard to interpret. Two brains can appear "synchronized" without interacting at all, because both participants hear the same tones, follow the same beat and make similar movements [4]. Common synchrony measures such as PLV are also prone to spurious hyper-connections [4]. On top of that, EEG has low spatial resolution, and playing an instrument introduces motion and muscle artifacts. Comparing every channel of one person with every channel of the other also creates a large multiple-comparison problem. For these reasons, the analysis compares real partner pairs against a shuffled baseline consisting of
 
-Recently, researchers proposed an overlooked counter-effect. They argued that a person's subjective involvement in an interaction raises their neural entropy, which should show up as inter-brain desynchronization (IBD), for example as reduced phase synchrony [5]. On this view, social interaction may push brains toward synchrony, while subjective involvement pulls them apart. This could help explain why IBS findings are so inconsistent. It also fits the wider view that interpersonal coordination moves in and out of synchrony rather than staying aligned [6], and the fact that partners in complementary roles show distinct neural signatures [7]. In the duets here, each partner plays a different part (melody vs. accompaniment). This makes the task a good test of whether desynchrony, and not only synchrony, tracks how involved participants feel.
+Recently, researchers proposed an overlooked counter-effect. They argued that a person's subjective involvement in an interaction raises their neural entropy, which should show up as inter-brain desynchronization (IBD), for example as reduced phase synchrony [5]. On this view, social interaction may push brains toward synchrony, while subjective involvement pulls them apart. In the duets here, each partner plays a different part (melody vs. accompaniment). This makes the task a good test of whether desynchrony, and not only synchrony, tracks how involved participants feel.
 
-This project asks whether inter-brain coupling appears in a musical joint-action task, and whether it relates to the sense of joint agency. In a phenomenological sense, joint agency is the feeling that "we" produced the outcome together [4].
+This project asks whether inter-brain coupling appears in a musical joint-action task, and whether it relates to the sense of joint agency. In a phenomenological sense, joint agency is the feeling that "we" produced the outcome together.
 The main guiding research questions are therefore:
 
 - **Inter-brain synchrony**: Do corresponding trial pairs exhibit greater phase synchrony than non-corresponding pairs?
 - **Subjective involvement**: Does the degree of inter-brain synchrony or desynchrony predict how involved participants feel in the joint action?
 
-**References**
+## Methods
 
-[1] Dumas, G., Nadel, J., Soussignan, R., Martinerie, J., & Garnero, L. (2010). Inter-brain synchronization during social interaction. _PLoS ONE, 5_(8), e12166.
+All analyses are exploratory.
+Code: [create_epochs.py](create_epochs.py) (epoching), [plv_all-subjects.ipynb](plv_all-subjects.ipynb) (PLV and statistics), [update_readMe.py](update_readMe.py) (writes the result tables into this README).
+Process:
 
-[2] Lindenberger, U., Li, S.-C., Gruber, W., & Müller, V. (2009). Brains swinging in concert: Cortical phase synchronization while playing guitar. _BMC Neuroscience, 10_, 22.
+```mermaid
+flowchart LR
+  A[BrainVision file<br/>one per dyad] --> B[Split _R / _L<br/>drop EOG + ref → 27 ch each]
+  B --> C[Epoch 2–15 s<br/>after trial start]
+  C --> D[Theta 4–8 Hz<br/>Hilbert phase]
+  D --> E[Crop 4.5–12.5 s]
+  E --> F[PLV for 729 pairs<br/>→ mean per trial]
+  F --> G[Real vs. shuffled<br/>→ excess PLV]
+  G --> H[Mean per dyad<br/>→ group tests]
+```
 
-[3] Sänger, J., Müller, V., & Lindenberger, U. (2012). Intra- and interbrain synchronization and network properties when playing guitar in duets. _Frontiers in Human Neuroscience, 6_, 312.
+### Participants and recordings
 
-[4] Burgess, A. P. (2013). On the interpretation of synchronization in EEG hyperscanning studies: A cautionary note. _Frontiers in Human Neuroscience, 7_, 881.
+Data come from OpenNeuro dataset ds007471 (32 dyads, 64 participants). Each dyad was recorded in one BrainVision file, with channels labelled `_R` or `_L` for the two participants. For each participant, the EOG channels (`VEOG_a`, `VEOG_b`, `HEOG_l`, `HEOG_r`) and the reference channel (`ref_lm`) were removed. That leaves 27 EEG channels per person. Channel positions were assigned from the standard 10–20 montage.
 
-[5] Froese, T., Loh, C. L., & Putri, F. (2024). Inter-brain desynchronization in social interaction: A consequence of subjective involvement? _Frontiers in Human Neuroscience, 18_, 1359841. https://doi.org/10.3389/fnhum.2024.1359841
+### Trial selection and epoching
 
-[6] Mayo, O., & Gordon, I. (2020). In and out of synchrony—Behavioral and physiological dynamics of dyadic interpersonal coordination. _Psychophysiology, 57_(6), e13574.
+- **Practice trials.** Trials before the start of the test phase were excluded. The test phase starts at marker `S1`. In two dyads (sub-03, sub-18) `S1` was missing, so the ninth-to-last `S107` marker was used instead. This removed 2–9 practice trials per dyad.
+- **Condition.** Each trial (onset marker `S105`) was labelled with the most recent condition marker before it: `S10` = duet, `S11` = constant pitch.
+  - **Duets**: 4 familiar melodies (Twinkle Twinkle Little Star, Hush Little Baby, B.I.N.G.O., Yankee Doodle), split into a melody part and an accompaniment part, one per participant.
+  - **Constant-pitch:** 4 monotone control sequences (fixed pitches: A4, C5, E♭5, F♯5), same structure but with no real melodic coordination demand (low-engagement contrast condition).
+- **Completeness.** A trial was kept only if all of the markers `S2`, `S3` and `S106` appeared before the next trial onset. Of 55–63 test-phase trials per dyad, 36–40 were kept (1,243 in total; 16–20 duet and 17–20 constant-pitch trials per dyad).
 
-[7] Konvalinka, I., Bauer, M., Stahlhut, C., Hansen, L. K., Roepstorff, A., & Frith, C. D. (2014). Frontal alpha oscillations distinguish leaders from followers: Multivariate decoding of mutually interacting brains. _NeuroImage, 94_, 79–88.
+**Preprocessing results are listed here:** [Results CSV file](preprocessing_summary.csv)
+
+### Phase-locking value
+
+Epochs were band-pass filtered to theta (4–8 Hz; MNE's default zero-phase FIR filter). The instantaneous phase φ(t) was taken from the Hilbert analytic signal. Filtering and the Hilbert transform were applied to the full epoch, which was then cropped to 4.5–12.5 s. This keeps filter edge effects out of the analysis window.
+
+For participant R's trial _i_, participant L's trial _j_, and one channel pair (_c_, _d_), PLV is computed across the _T_ samples of the window:
+
+$$\mathrm{PLV}_{ij}(c,d) = \left| \frac{1}{T} \sum_{t=1}^{T} e^{\,i\left[\phi^{R}_{i,c}(t) - \phi^{L}_{j,d}(t)\right]} \right|$$
+
+This value was averaged over all 27 × 27 = 729 channel pairs, including non-homologous pairs. The result is one number per trial combination, stored as a trial × trial matrix _M_ for each dyad:
+![trial-matrix](plv-matrix.png)
+
+### Real, shuffled and excess PLV
+
+Within each condition, separately:
+
+- **Real:** for trial _i_ is the diagonal entry *M*ᵢᵢ which is both partners recorded at the same time.
+- **Shuffled:** This is the average of the cells you can see on the off-diagonal on the above image. So the baseline keeps the two individuals and the task type the same, and only switches up which trials are being matched.
+- **Excess PLV** = real − shuffled.
+  The simple (perhaps naive) thought behind this is that we can just get a somewhat accurate measure of the synchronization if we just substract the shuffled PLV, so a kind of "shuffle-corrected PLV". It's based on this paper, but there are also other ways of doing it, I haven't fully explored.
+
+Perkel DH, Gerstein GL, Moore GP. Neuronal spike trains and stochastic point processes. II. Simultaneous spike trains. Biophys J. 1967 Jul;7(4):419-40. doi: 10.1016/S0006-3495(67)86597-4. PMID: 4292792; PMCID: PMC1368069.
+
+### Statistical analysis
+
+- **Excess PLV against zero:** one-sample _t_-test for each condition, with Cohen's _d_ = mean / SD.
+- **Duet vs. constant pitch:** paired _t_-tests on excess PLV and on real PLV, with Cohen's *d*z = mean difference / SD of differences.
+- **Robustness check:** every _t_-test is paired with a Wilcoxon signed-rank test.
+- **Confidence intervals:** 95% CIs come from the _t_ distribution.
+- **Significance:** two-sided α = .05. There is no correction for multiple comparisons; the four tests are reported as exploratory.
+
+## Dataset
+
+The dataset used for this is ds007471, an EEG hyperscanning study of the sense of joint agency during a musical joint-action task. The study included 32 pairs of participants (64 people in total), each pair recorded simultaneously on a single 64-channel BrainVision file (32 channels per person, distinguished by `_R`/`_L` suffixes).
+Each pair ran through 8 tone sequences (4 duets + 4 constant-pitch) × 5 joint trials each = 40 trials per dyad.
+
+Measured:
+
+- **Joint agency rating (subjective involvement)** (1–7 self-report) after each trial: how much the participant felt their actions and the outcome were jointly theirs.
+- **Synchronization performance**: The measured timing asynchrony between the two participants' note onsets, as a proportion of the beat interval, plus its variability (SD) per trial.
 
 ## Results
 
 ### Synchronization
 
-All results below are from the group-level analysis across all 32 dyads. Each trial gives one theta-band (4–8 Hz) PLV, taken from the 4.5–12.5 s window and averaged over all 729 R × L channel pairs. Trials are then averaged per dyad and condition, so the dyad is the unit of analysis. Excess PLV is real PLV minus shuffled PLV. It measures how much more coupled true partners are than pseudo-pairs who heard the same stimuli but never interacted. These analyses are exploratory.
+The plot shows the
 
-### 1. Descriptive statistics
+![excess-plv](excess-plv.png)
+
+#### 1. Descriptive statistics
 
 <!-- NB2_DESCRIPTIVE_START -->
 
@@ -79,7 +126,7 @@ All results below are from the group-level analysis across all 32 dyads. Each tr
 
 **Interpretation:**
 
-### 2. Excess PLV against zero (one-sample tests)
+#### 2. Excess PLV against zero (one-sample tests)
 
 <!-- NB2_ONE_SAMPLE_START -->
 
@@ -94,7 +141,7 @@ All results below are from the group-level analysis across all 32 dyads. Each tr
 
 **Interpretation:**
 
-### 3. Excess PLV: duet vs. constant pitch (paired)
+#### 3. Excess PLV: duet vs. constant pitch (paired)
 
 <!-- NB2_PAIRED_EXCESS_START -->
 
@@ -108,7 +155,7 @@ All results below are from the group-level analysis across all 32 dyads. Each tr
 
 **Interpretation:**
 
-### 4. Real PLV: duet vs. constant pitch (paired)
+#### 4. Real PLV: duet vs. constant pitch (paired)
 
 <!-- NB2_PAIRED_REAL_START -->
 
@@ -127,26 +174,6 @@ All results below are from the group-level analysis across all 32 dyads. Each tr
 So far there is no evidence that true partners show more theta-band phase synchrony than pseudo-pairs, in either condition, and no evidence that the musical coordination demand changes this. The next steps are to add the joint-agency ratings at the trial level, to compare other frequency bands and measures (CCorr; alpha, beta, gamma) against the same shuffled baseline, and to choose channel subsets in advance.
 
 ### Desynchronization
-
-## Data
-
-The dataset used for this is ds007471, an EEG hyperscanning study of the sense of joint agency during a musical joint-action task. The study included 32 pairs of participants (64 people in total), each pair recorded simultaneously on a single 64-channel BrainVision file (32 channels per person, distinguished by `_R`/`_L` suffixes).
-
-Each pair played simple tone sequences together, alternating between two conditions:
-
-- **Musical duets**: 4 familiar melodies (Twinkle Twinkle Little Star, Hush Little Baby, B.I.N.G.O., Yankee Doodle), split into a melody part and an accompaniment part, one per participant.
-- **Constant-pitch sequences**: 4 monotone control sequences (fixed pitches: A4, C5, E♭5, F♯5), same structure but with no real melodic coordination demand (low-engagement contrast condition).
-
-Each pair ran through 8 tone sequences (4 duets + 4 constant-pitch) × 5 joint trials each = 40 trials per dyad.
-
-Measured:
-
-- **Joint agency rating (subjective involvement)** (1–7 self-report) after each trial: how much the participant felt their actions and the outcome were jointly theirs.
-- **Synchronization performance**: The measured timing asynchrony between the two participants' note onsets, as a proportion of the beat interval, plus its variability (SD) per trial.
-
-## Preprocessing
-
-**Results listed here:** [Results JSON file](preprocessing_summary.csv)
 
 ## Proof of Concept Analysis
 
@@ -172,15 +199,19 @@ There is no statistically significant excess of theta-band coupling in real pair
 - This is just one dyad, with just the theta-band
 - Averaging was done over all 729 channel pairs, so there's dillution in terms of localized coupling
 
-## Glossary of Statistical Measures
+## References
 
-### Phase-locking value
+[1] Dumas, G., Nadel, J., Soussignan, R., Martinerie, J., & Garnero, L. (2010). Inter-brain synchronization during social interaction. _PLoS ONE, 5_(8), e12166.
+[2] Lindenberger, U., Li, S.-C., Gruber, W., & Müller, V. (2009). Brains swinging in concert: Cortical phase synchronization while playing guitar. _BMC Neuroscience, 10_, 22.
+[3] Sänger, J., Müller, V., & Lindenberger, U. (2012). Intra- and interbrain synchronization and network properties when playing guitar in duets. _Frontiers in Human Neuroscience, 6_, 312.
+[4] Burgess, A. P. (2013). On the interpretation of synchronization in EEG hyperscanning studies: A cautionary note. _Frontiers in Human Neuroscience, 7_, 881.
+[5] Froese, T., Loh, C. L., & Putri, F. (2024). Inter-brain desynchronization in social interaction: A consequence of subjective involvement? _Frontiers in Human Neuroscience, 18_, 1359841.
 
-Quantifies the consisteny of phase differences between two signals across multiple trials.
-For every trial, channel pair, and time point, we want the phase difference $$\Delta\phi(t) = \phi_R(t) - \phi_L(t)$$ where $$\phi_R(t)$$ and $$\phi_L(t)$$ are the instantaneous phases of the two EEG signals.
+## Next Steps
 
-PLV ≈ 1 -> phase difference is very consistent
-
-PLV ≈ 0 -> phase difference varies considerably
-
-The problem is that a high PLV does not necessarily mean that the two brains are interacting. Phase locking can also occur if the pair hears the same music, moves together or are exposed to the same auditory stimulus.
+- [x] ~~Do an exploratory analysis of the dataset~~
+- [x] ~~Compute phase lock value~~
+- [x] ~~Extend analysis to more dyads~~
+- [ ] Include subjectivity-rating in analysis
+- [ ] Add CCorr and the alpha, beta and gamma bands, all with the same shuffled baseline
+- [ ] Choose channel subsets before looking at results (e.g. frontal, central) instead of averaging all 729 pairs
