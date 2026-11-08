@@ -103,7 +103,7 @@ Measured:
 
 ### Synchronization
 
-The plot shows the
+The plot shows the shuffle-corrected PLV for all 32 dyads and the two condition duet and constant pitch. Since the duet task requires more coordination, we would expect that this condition shows more PLV, but this is not the case.
 
 ![excess-plv](excess-plv.png)
 
@@ -212,6 +212,7 @@ There is no statistically significant excess of theta-band coupling in real pair
 - [x] ~~Do an exploratory analysis of the dataset~~
 - [x] ~~Compute phase lock value~~
 - [x] ~~Extend analysis to more dyads~~
+- [ ] Add more references and add interpretation
 - [ ] Include subjectivity-rating in analysis
 - [ ] Add CCorr and the alpha, beta and gamma bands, all with the same shuffled baseline
 - [ ] Choose channel subsets before looking at results (e.g. frontal, central) instead of averaging all 729 pairs
