@@ -1,4 +1,8 @@
-# Exploring Neural Dynamics During Joint Action
+# Exploring Neural Dynamics During Joint Singing
+
+This repository documents an exploratory analysis of EEG hyperscanning data from a musical joint-singing task. The project investigates inter-brain phase synchronization using different analytical approaches, with a particular interest in the relationship between neural dynamics and subjective involvement.
+
+Desync and subjective involvement are still work in progress.
 
 ## Index
 
@@ -18,9 +22,9 @@
 
 When people act together, as when two musicians play a duet, their behaviour becomes closely coordinated in time. Earlier studies have reported inter-brain phase synchrony during social interaction [1] and while playing music together [2, 3].
 
-But Inter-brain synchrony is hard to interpret. Two brains can appear "synchronized" without interacting at all, because both participants hear the same tones, follow the same beat and make similar movements [4]. Common synchrony measures such as PLV are also prone to spurious hyper-connections [4]. On top of that, EEG has low spatial resolution, and playing an instrument introduces motion and muscle artifacts. Comparing every channel of one person with every channel of the other also creates a large multiple-comparison problem. For these reasons, the analysis compares real partner pairs against a shuffled baseline consisting of
+But Inter-brain synchrony is hard to interpret. Two brains can appear "synchronized" without interacting at all, because both participants hear the same tones, follow the same beat and make similar movements [4]. Common synchrony measures such as PLV are also prone to spurious hyper-connections [4]. On top of that, EEG has low spatial resolution, and playing an instrument introduces motion and muscle artifacts. Comparing every channel of one person with every channel of the other also creates a large multiple-comparison problem. For these reasons, the analysis compares real partner pairs against a shuffled baseline consisting of the same two people’s signals paired across mismatched trials of the same condition, which keeps each person’s signal properties and the task type constant but breaks the moment-to-moment coupling between them. Only synchrony in excess of this baseline is interpreted as coupling, and all 729 channel pairs are averaged into one value per trial rather than tested one by one. A next step is to look at individual channel pairings rather than taking the mean of all channels.
 
-Recently, researchers proposed an overlooked counter-effect. They argued that a person's subjective involvement in an interaction raises their neural entropy, which should show up as inter-brain desynchronization (IBD), for example as reduced phase synchrony [5]. On this view, social interaction may push brains toward synchrony, while subjective involvement pulls them apart. In the duets here, each partner plays a different part (melody vs. accompaniment). This makes the task a good test of whether desynchrony, and not only synchrony, tracks how involved participants feel.
+Recently, researchers proposed an overlooked counter-effect. They argued that a person's subjective involvement in an interaction raises their neural entropy, which should show up as inter-brain desynchronization (IBD), for example as reduced phase synchrony [5]. In the duets here, each partner plays a different part (melody vs. accompaniment). This makes the task a good test of whether desynchrony, and not only synchrony, tracks how involved participants feel.
 
 This project asks whether inter-brain coupling appears in a musical joint-action task, and whether it relates to the sense of joint agency. In a phenomenological sense, joint agency is the feeling that "we" produced the outcome together.
 The main guiding research questions are therefore:
@@ -77,9 +81,7 @@ Within each condition, separately:
 - **Real:** for trial _i_ is the diagonal entry *M*ᵢᵢ which is both partners recorded at the same time.
 - **Shuffled:** This is the average of the cells you can see on the off-diagonal on the above image. So the baseline keeps the two individuals and the task type the same, and only switches up which trials are being matched.
 - **Excess PLV** = real − shuffled.
-  The simple (perhaps naive) thought behind this is that we can just get a somewhat accurate measure of the synchronization if we just substract the shuffled PLV, so a kind of "shuffle-corrected PLV". It's based on this paper, but there are also other ways of doing it, I haven't fully explored.
-
-Perkel DH, Gerstein GL, Moore GP. Neuronal spike trains and stochastic point processes. II. Simultaneous spike trains. Biophys J. 1967 Jul;7(4):419-40. doi: 10.1016/S0006-3495(67)86597-4. PMID: 4292792; PMCID: PMC1368069.
+  The simple (perhaps naive) thought behind this is that we can just get a somewhat accurate measure of the synchronization if we just substract the shuffled PLV, so a kind of "shuffle-corrected PLV". It's based on Perkel et al. [6], but there are also other ways of doing it, I haven't fully explored.
 
 ### Statistical analysis
 
@@ -91,10 +93,13 @@ Perkel DH, Gerstein GL, Moore GP. Neuronal spike trains and stochastic point pro
 
 ## Dataset
 
-The dataset used for this is ds007471, an EEG hyperscanning study of the sense of joint agency during a musical joint-action task. The study included 32 pairs of participants (64 people in total), each pair recorded simultaneously on a single 64-channel BrainVision file (32 channels per person, distinguished by `_R`/`_L` suffixes).
-Each pair ran through 8 tone sequences (4 duets + 4 constant-pitch) × 5 joint trials each = 40 trials per dyad.
+- Dataset: ds007471
+- Repository: OpenNeuro ds007471
+- Participants: 64 (32 dyads)
+- Recording: simultaneous EEG, 64 channels per dyad (32 per participant)
+- Conditions: musical duet and constant pitch
 
-Measured:
+**Behavioral measures**
 
 - **Joint agency rating (subjective involvement)** (1–7 self-report) after each trial: how much the participant felt their actions and the outcome were jointly theirs.
 - **Synchronization performance**: The measured timing asynchrony between the two participants' note onsets, as a proportion of the beat interval, plus its variability (SD) per trial.
@@ -206,6 +211,7 @@ There is no statistically significant excess of theta-band coupling in real pair
 [3] Sänger, J., Müller, V., & Lindenberger, U. (2012). Intra- and interbrain synchronization and network properties when playing guitar in duets. _Frontiers in Human Neuroscience, 6_, 312.
 [4] Burgess, A. P. (2013). On the interpretation of synchronization in EEG hyperscanning studies: A cautionary note. _Frontiers in Human Neuroscience, 7_, 881.
 [5] Froese, T., Loh, C. L., & Putri, F. (2024). Inter-brain desynchronization in social interaction: A consequence of subjective involvement? _Frontiers in Human Neuroscience, 18_, 1359841.
+[6] Perkel DH, Gerstein GL, Moore GP. Neuronal spike trains and stochastic point processes. II. Simultaneous spike trains. Biophys J. 1967 Jul;7(4):419-40. doi: 10.1016/S0006-3495(67)86597-4. PMID: 4292792; PMCID: PMC1368069.
 
 ## Next Steps
 
