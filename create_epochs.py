@@ -79,7 +79,10 @@ def preprocess_subject(sub, tmin=2.0, tmax=15.0):
     ])
 
     good = trials[complete]
-    metadata = pd.DataFrame({"condition": condition[complete]})
+    metadata = pd.DataFrame({
+        "condition": condition[complete],
+       "trial_number": np.arange(1, len(trials) + 1)[complete]
+    })
 
     kw = dict(
         event_id={"trial_start": code(105)},
